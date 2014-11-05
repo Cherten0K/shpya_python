@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if session.logged_in %}
+    <form action="{{ url_for('append') }}" method="post" class="add-entry">
+      <div id="link">
+        Заголовок:<br/>
+        <input type="text" size="30" name="title"/><br/>
+        Текст:<br/>
+        <textarea rows="10" cols="45" name="comment"></textarea><br/>
+        Дата начала:<br/>
+        <input type="text" name="start_date"/> (YYYY-MM-DD HH:MM) <br/>
+        Дата окончания:<br/>
+        <input type="text" name="end_date"/> (YYYY-MM-DD HH:MM)<br/>
+        <input type="submit" value="Добавить запись"/>
+      </div>
+    </form>
+    {% endif %}
+    <hr/>
+    <div class="entries">
+    {% for (title, comment, start_date, end_date) in messages %}
+        <h3>{{ title }}</h3>
+        <p>{{ comment }}</p>
+        <p>Дата начала: {{start_date }}</p>
+        <p>Дата окончания: {{ end_date }}</p>
+        <hr/>
+    {% endfor %}
+    </div>
+{% endblock %}
